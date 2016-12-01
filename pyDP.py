@@ -77,7 +77,8 @@ def distance_point2line(a, b, c):
     ab = a_f - b_f
     bc = b_f - c_f
     ac = a_f - c_f
-    return sum((ac * bc)**2)**0.5 / sum(ab**2)**0.5
+    print(ac * ab)
+    return sum((ac - sum(ac * ab) / sum(ab**2) * ab)**2)**0.5
 
 
 def trajectory_compression(raw_trajectory, threshold):
@@ -133,7 +134,8 @@ def find_far_point(arr, i, j, threshold, flag_arr):
         find_far_point(arr, i, flag, threshold, flag_arr)
         find_far_point(arr, flag, j, threshold, flag_arr)
 
-arrs = [[116.382433, 39.879020],[116.382523, 39.879123],[116.382373, 39.878888],[116.382373, 39.878888],[116.382423, 39.878871]]
-narrs = trajectory_compression(arrs, "0.0007")
-print(narrs)
+arrs = []
+# narrs = trajectory_compression(arrs, "0.0007", EUCLIDIAN_DISTANCE)
+# print(narrs)
+# print(distance_point2line([1, 0], [2, 0], [0.5, 1]))
 
