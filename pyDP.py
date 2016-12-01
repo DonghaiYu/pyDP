@@ -134,6 +134,6 @@ def find_far_point(arr, i, j, threshold, flag_arr):
         find_far_point(arr, flag, j, threshold, flag_arr)
 
 arrs = [[116.382433, 39.879020],[116.382523, 39.879123],[116.382373, 39.878888],[116.382373, 39.878888],[116.382423, 39.878871]]
-narrs = trajectory_compression(arrs, "0.0007", EUCLIDIAN_DISTANCE)
+narrs = trajectory_compression(arrs, "0.0007")
 print(narrs)
 
