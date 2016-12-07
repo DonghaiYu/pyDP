@@ -1,6 +1,6 @@
 # -*- coding: utf8 -*-
 # @Time    : 2016/11/30 13:34
-# @Author  : Dylan
+# @Author  : Dylan东海
 # @Site    : 
 # @File    : pyDP.py
 # @Software: PyCharm Community Edition
@@ -10,14 +10,15 @@
 This is an implementation of Douglas-Peucker Algorithm, which can be used for trajectory compression.
 When there are enough points in a trajectory, this algorithm can find the key point in the trajectory.
 This tool support high dimension points.
-depend on: numpy
+depend on: numpy, python3.5
 """
 import numpy as np
 
 
 def distance_point2line(a, b, c, distance_index):
     """Calculate the distance from a point to a line, when the line is decided by two points.
-    the equation: |vector(ac)×vector(bc)|/vector(ab), a, b decide a line, c is the target point.
+    the equation: |vector(ac)-vector(ab)·(vector(ac)·vector(ab)/|vector(ab)|²)|,
+    a, b decide a line, c is the target point.
     :param a: the first line point
     :param b: the second line point
     :param c: the target point
@@ -38,9 +39,9 @@ def distance_point2line(a, b, c, distance_index):
         af.append(a[i])
         bf.append(b[i])
         cf.append(c[i])
-    a_f = np.array(af, dtype="float32")
-    b_f = np.array(bf, dtype="float32")
-    c_f = np.array(cf, dtype="float32")
+    a_f = np.array(af, dtype="float")
+    b_f = np.array(bf, dtype="float")
+    c_f = np.array(cf, dtype="float")
 
     ab = a_f - b_f
     bc = b_f - c_f
@@ -77,7 +78,7 @@ def trajectory_compression(raw_trajectory, threshold, distance_index):
 def find_far_point(arr, i, j, distance_index, threshold, flag_arr):
     """
     This function is used for finding the farthest points (to line (arr[i], arr[j])) in sub trajectory arr(i, j),
-    it is recursive until there are no more points's distance is larger than threshold to the line. if a point is not
+    it recurs until there are no more points's distance is larger than threshold to the line. if a point is not
     ignored in the trajectory, it's index in flag_arr will be set as 1, otherwise 0.
     :param arr: trajectory data
     :param i: start index
@@ -106,6 +107,6 @@ def find_far_point(arr, i, j, distance_index, threshold, flag_arr):
 arrs = [[1, 1, 1, 'x'], [2, 2, 2, 'y'], [3, 3, 3, 'z']]
 narrs = trajectory_compression(arrs, "0.0007", [0, 1, 2])
 print(narrs)
-'''
-# print(distance_point2line([1, 0], [2.6, 1], [3.5, 6]))
 
+print(distance_point2line([1, 0], [1.5, 1], [12, 1.5], [0, 1]))
+'''
